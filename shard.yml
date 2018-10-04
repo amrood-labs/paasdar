@@ -1,0 +1,18 @@
+name: paasdar
+version: 0.1.0
+
+authors:
+  - Zaid Akram <hello@zaidakram.com>
+
+crystal: 0.25.1
+
+license: MIT
+
+dependencies:
+  amber:
+    github: amberframework/amber
+    version: 0.8.0
+
+  jasper_helpers:
+    github: amberframework/jasper-helpers
+    version: ~> 0.2.0
