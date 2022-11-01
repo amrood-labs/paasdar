@@ -54,7 +54,7 @@ module Paasdar::Model
     end
 
     def authenticate(password : String)
-      (bcrypt_pass = self.password) ? bcrypt_pass == password : false
+      self.password.not_nil!.verify(password)
     end
   end
 
@@ -68,7 +68,7 @@ module Paasdar::Model
     def confirm!
       self.confirmation_token = nil
       self.confirmation_sent_at = nil
-      self.confirmed_at = Time.now.to_utc
+      self.confirmed_at = Time.utc
       # TODO: Log bug...
       self.save
     end
@@ -76,14 +76,14 @@ module Paasdar::Model
 
     private def make_confirmable!
       self.confirmation_token = UUID.random.to_s
-      self.confirmation_sent_at = Time.now.to_utc
+      self.confirmation_sent_at = Time.utc
     end
   end
 
   macro recoverable!
     def make_recoverable!
       self.reset_password_token = UUID.random.to_s
-      self.reset_password_sent_at = Time.now.to_utc
+      self.reset_password_sent_at = Time.utc
       self.save
     end
 
